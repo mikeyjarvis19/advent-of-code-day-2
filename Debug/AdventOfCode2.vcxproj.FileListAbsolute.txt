@@ -1,0 +1,2 @@
+C:\Users\michael.jarvis\source\repos\AdventOfCode2\Debug\AdventOfCode2.exe
+C:\Users\michael.jarvis\source\repos\AdventOfCode2\Debug\AdventOfCode2.pdb

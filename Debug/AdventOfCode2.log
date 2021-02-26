@@ -1,0 +1,3 @@
+﻿  Source.cpp
+C:\Users\michael.jarvis\source\repos\AdventOfCode2\Source.cpp(8,20): warning C4018: '<': signed/unsigned mismatch
+  AdventOfCode2.vcxproj -> C:\Users\michael.jarvis\source\repos\AdventOfCode2\Debug\AdventOfCode2.exe
