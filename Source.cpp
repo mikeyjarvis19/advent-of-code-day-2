@@ -10,7 +10,7 @@ bool value_in_range(int64_t value, int64_t min, int64_t max) {
 	return value >= min && value <= max;
 }
 
-int main() {
+void part_1() {
 	std::string lineString;
 	std::ifstream fileContents("input.txt");
 	int countValid = 0;
@@ -21,8 +21,7 @@ int main() {
 		auto positionOfSecondSpace = lineString.find_last_of(' ');
 		int maxValue = std::stoi(lineString.substr(positionOfHyphen + 1, positionOfFirstSpace));
 		char importantChar = lineString[positionOfFirstSpace + 1];
-		auto sizeOfLineString = lineString.length();
-		std::string password = lineString.substr(positionOfSecondSpace + 1, sizeOfLineString - positionOfSecondSpace);
+		std::string password = lineString.substr(positionOfSecondSpace + 1);
 		int64_t characterCount = count_characters(importantChar, password);
 		bool passwordValid = value_in_range(characterCount, minValue, maxValue);
 		if (passwordValid) {
@@ -36,7 +35,34 @@ int main() {
 		std::cout << "Character count: " << characterCount << "\n";
 		std::cout << "Password valid: " << passwordValid << "\n\n";
 	}
-	std::cout << "\n\n\n\nValid count: " << countValid;
+	std::cout << "\n\n\n\nValid count part 1: " << countValid << "\n";
+}
+
+void part_2() {
+	std::string lineString;
+	std::ifstream fileContents("input.txt");
+	int countValid = 0;
+	while (std::getline(fileContents, lineString)) {
+		auto positionOfHyphen = lineString.find_first_of('-');
+		auto positionOfFirstSpace = lineString.find_first_of(' ');
+		int firstIndex = std::stoi(lineString.substr(0, positionOfHyphen));
+		int secondIndex = std::stoi(lineString.substr(positionOfHyphen + 1, positionOfFirstSpace));
+		auto positionOfSecondSpace = lineString.find_last_of(' ');
+		char importantChar = lineString[positionOfFirstSpace + 1];
+		std::string password = lineString.substr(positionOfSecondSpace + 1);
+		auto firstIndexCharacterMatches = password[firstIndex - 1] == importantChar;
+		auto secondIndexCharacterMatches = password[secondIndex - 1] == importantChar;
+		bool passwordValid = firstIndexCharacterMatches ^ secondIndexCharacterMatches;
+		if (passwordValid) {
+			countValid++;
+		}
+	}
+	std::cout << "\n\nValid count part 2: " << countValid << "\n";
+}
+
+int main() {
+	part_1();
+	part_2();
 }
 
 /*
