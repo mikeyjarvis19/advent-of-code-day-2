@@ -2,22 +2,12 @@
 #include <fstream>
 #include <string>
 
-int count_characters(char characterToSearchFor, std::string stringToSearch) {
-	int count = 0;
-
-	for (int i = 0; i < stringToSearch.size(); i++)
-		if (stringToSearch[i] == characterToSearchFor) count++;
-
-	return count;
+int64_t count_characters(char characterToSearchFor, std::string const& stringToSearch) {
+	return std::count(std::begin(stringToSearch), std::end(stringToSearch), characterToSearchFor);
 }
 
-bool value_in_range(int value, int min, int max) {
-	if (value >= min && value <= max) {
-		return true;
-	}
-	else {
-		return false;
-	}
+bool value_in_range(int64_t value, int64_t min, int64_t max) {
+	return value >= min && value <= max;
 }
 
 int main() {
@@ -25,15 +15,15 @@ int main() {
 	std::ifstream fileContents("input.txt");
 	int countValid = 0;
 	while (std::getline(fileContents, lineString)) {
-		int positionOfHyphen = lineString.find_first_of("-");
+		auto positionOfHyphen = lineString.find_first_of('-');
 		int minValue = std::stoi(lineString.substr(0, positionOfHyphen));
-		int positionOfFirstSpace = lineString.find_first_of(" ");
-		int positionOfSecondSpace = lineString.find_last_of(" ");
+		auto positionOfFirstSpace = lineString.find_first_of(' ');
+		auto positionOfSecondSpace = lineString.find_last_of(' ');
 		int maxValue = std::stoi(lineString.substr(positionOfHyphen + 1, positionOfFirstSpace));
 		char importantChar = lineString[positionOfFirstSpace + 1];
-		int sizeOfLineString = lineString.length();
+		auto sizeOfLineString = lineString.length();
 		std::string password = lineString.substr(positionOfSecondSpace + 1, sizeOfLineString - positionOfSecondSpace);
-		int characterCount = count_characters(importantChar, password);
+		int64_t characterCount = count_characters(importantChar, password);
 		bool passwordValid = value_in_range(characterCount, minValue, maxValue);
 		if (passwordValid) {
 			countValid++;
@@ -47,7 +37,7 @@ int main() {
 		std::cout << "Password valid: " << passwordValid << "\n\n";
 	}
 	std::cout << "\n\n\n\nValid count: " << countValid;
-	}
+}
 
 /*
 Steps:
